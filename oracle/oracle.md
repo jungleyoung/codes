@@ -52,7 +52,7 @@ alter user 用户名 identified by 密码;
 
 ### 设置连接数
 ~~~oracle
-#连接数
+--连接数
 alter system set processes = 3000 scope = spfile;
 ~~~
 
