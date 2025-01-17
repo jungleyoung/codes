@@ -130,3 +130,18 @@ FROM dba_segments
 GROUP BY segment_name, segment_type
 ORDER BY size_GB desc;
 ~~~
+
+### 限制可连接ip
+~~~shell
+vim /oracle/11.2.0/db_1/network/admin/sqlnet.ora
+# 开启 IP 地址检查
+TCP.VALIDNODE_CHECKING = YES
+
+# 允许连接的 IP 地址或子网，多个地址用逗号隔开 必须把oracle ip加入
+TCP.INVITED_NODES = (10.0.124.*,10.0.125.*,10.0.14.172,10.0.14.246,10.0.118.67,10.0.14.26,10.0.18.58)
+
+# 禁止连接的 IP 地址或子网
+TCP.REJECTED_NODES = (192.168.3.0/24)
+vim tnsnames.ora
+主机名要对
+~~~
