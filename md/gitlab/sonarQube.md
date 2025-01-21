@@ -1,0 +1,1 @@
+## gitlab配置sonarqube
