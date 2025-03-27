@@ -145,3 +145,13 @@ TCP.REJECTED_NODES = (192.168.3.0/24)
 vim tnsnames.ora
 主机名要对
 ~~~
+
+### 监听
+~~~shell
+lsnrctl start
+lsnrctl stop
+#关闭数据库
+shutdown immediate;
+#启动数据库
+startup;
+~~~

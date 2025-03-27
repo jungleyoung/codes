@@ -9,13 +9,17 @@ import cn.smallbun.screw.core.process.ProcessConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.istack.internal.NotNull;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+//import com.zaxxer.hikari.HikariConfig;
+//import com.zaxxer.hikari.HikariDataSource;
 import okhttp3.*;
 import org.junit.Test;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,17 +27,15 @@ import java.util.concurrent.*;
 
 public class CodeTest {
 
-    private final OkHttpClient okHttpClient;
+    private static OkHttpClient okHttpClient=new OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(false)
+            .connectionPool(new ConnectionPool(10, 5, TimeUnit.MINUTES))
+            .build();
 
-    public CodeTest() {
-        this.okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(false)
-                .connectionPool(new ConnectionPool(10, 5, TimeUnit.MINUTES))
-                .build();
-    }
+
 
     private String reqStr   = "{\n" +
             "  \"body\": {\n" +
@@ -237,7 +239,7 @@ public class CodeTest {
 
     }
 
-    @Test
+    /*@Test
     public void ddlDocument() {
         //数据源jdk17
         HikariConfig hikariConfig = new HikariConfig();
@@ -308,6 +310,12 @@ public class CodeTest {
                 .produceConfig(processConfig).build();
         //执行生成
         new DocumentationExecute(config).execute();
+    }*/
+
+
+    @Test
+    public  void copy(){
+        Main.copyDirs(new File("D:\\resources\\SVNREP\\中环项目"), "D:\\resources\\SVNREP\\中环项目1");
     }
 
 }

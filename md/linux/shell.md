@@ -60,3 +60,10 @@ chmod 600 ~/.ssh/authorized_keys
 
 #接下来就可以用私钥登录服务器
 ~~~
+
+### 内存占用诊断
+~~~
+top -Hp <pid>
+printf "%x" ?
+jstack <pid> |grep -A 10 0x7f0d0a0e0a08
+~~~
