@@ -231,7 +231,13 @@ public class AESUtil {
     }
 
     public static void newToken(){
-
+        JSONObject fileKey = new JSONObject();
+        fileKey.put("BUSIID", "");
+        fileKey.put("FILENAME", "");
+        String encrypt = AESUtil.encrypt(fileKey.toString());
+        System.out.println("https://xxx/eai/dlBankreceipt?token="+encrypt.replaceAll("\r", "")
+                .replaceAll("\n", "").replaceAll("/", "_")
+                .replaceAll("\\+", "."));
     }
 
 }
