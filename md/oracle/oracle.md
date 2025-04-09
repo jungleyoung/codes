@@ -155,3 +155,8 @@ shutdown immediate;
 #启动数据库
 startup;
 ~~~
+
+### 查询连接情况
+~~~sql
+SELECT  * FROM V$SESSION t WHERE  t.username='CMS' order by t.LOGON_TIME desc;
+~~~
