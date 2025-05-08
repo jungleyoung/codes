@@ -15,7 +15,24 @@ chown -R oracle:oinstall /home/oracle/data
 ~~~
 
 
-### 重建用户
+### 彻底删除用户并重建
+~~~shell
+
+#查看当前用户和表空间
+SELECT username, default_tablespace FROM dba_users;
+#查看当前表空间和物理文件
+SELECT tablespace_name as tb, file_name as name FROM dba_data_files;
+#关闭监听
+lsnrctl stop
+#关闭数据库(避免仍处于连接的用户)
+shutdown immediate
+#启动数据库
+startup
+#删除用户及其物理数据
+DROP USER CMS CASCADE;
+#删除表空间以及物理文件
+DROP TABLESPACE CMS_DATA INCLUDING CONTENTS AND DATAFILES;
+~~~
 
 ~~~oracle
 --删除用户
@@ -159,4 +176,18 @@ startup;
 ### 查询连接情况
 ~~~sql
 SELECT  * FROM V$SESSION t WHERE  t.username='CMS' order by t.LOGON_TIME desc;
+~~~
+
+### 查看各个表空间状态
+~~~sql
+SELECT FILE_NAME,TABLESPACE_NAME,AUTOEXTENSIBLE FROM dba_data_files;
+~~~
+### 表空间无限大
+~~~sql
+alter database DATAFILE '/oracle/oradata/perfdb/users01.dbf'  autoextend on maxsize unlimited;
+~~~
+
+### 查看是否bigfile
+~~~sql  
+select tablespace_name,bigfile from dba_tablespaces;
 ~~~

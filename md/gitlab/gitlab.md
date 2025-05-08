@@ -93,3 +93,18 @@ git tag -l| awk '/^./$/ {print  $1}' | xargs git tag -d
 git show-ref --tag | awk '/^.*$/ {print ":" $2}' | xargs git push origin
 8ec29ffda5
 token=_kTLvcr9_mnTJYNvsQM1
+
+
+#### git硬回滚
+~~~
+找到提交前的哈希值
+git checkout hashvalue
+删除原分支（可选）
+git branch -D oldxxxxx
+删除远端分支（可选）
+git push origin -d oldxxxxx
+创建并切换新分支
+git checkout -b newxxxxx
+推送新分支
+git push -u origin newxxxxxx
+~~~
